@@ -3,7 +3,7 @@
 Author:  c0d3Ninja
 Website: https://gotr00t0day.github.io
 
-memfd_hiding - Execute a payload entirely in memory without ever writing it to disk.
+memfd_hiding - Execute a payload entirely in memory without ever writing it to disk. The process name masquerades as a kernel worker thread so it can look legitimate. 
 
 
 Generate an ELF with msfvenom and convert it to a C header:
